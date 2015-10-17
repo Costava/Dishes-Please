@@ -1,4 +1,4 @@
-# Dishes-Please
+# Dishes, Please
 
 In Dishes, Please, you process dirty dishes by washing as many as you can during your shift. You need to watch the clock to know when your 12:00 to 6:00 shift will end.
 
