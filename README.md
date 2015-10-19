@@ -8,4 +8,6 @@ Initially developed over 3 days for the [2014 GDSE Summer Game Jam](http://meta.
 
 Currently built using Unity 5.2.1
 
+## [Play online](https://costava.github.io/Dishes-Please/play/play.html)
+
 ![Dishes, Please](http://i.imgur.com/XBYXyK1.png)
