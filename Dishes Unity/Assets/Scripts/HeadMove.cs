@@ -44,7 +44,7 @@ public class HeadMove : MonoBehaviour {
 		//  bring up the menu and then close it
 		if(/*Screen.lockCursor && */!Input.GetKey(KeyCode.Space))
 		{
-			Debug.Log ("hm lateupdate");
+			//Debug.Log ("hm lateupdate");
 			this.rotationX += Input.GetAxis("Mouse X") * sensitivityX;
 			this.rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
 
