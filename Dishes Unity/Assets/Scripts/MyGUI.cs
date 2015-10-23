@@ -18,9 +18,13 @@ public class MyGUI : MonoBehaviour {
 	int buttonWidth = 230;
 	int buttonHeight = 20;
 
-	public float musicSlider = 1f;
-	public float sfxSlider = 1f;
-	public float headMoveSensitivitySlider = 15f;
+	// Default slider values
+	// If they are changed here, they will not be updated in game
+	//  unless you reset the component (of this script, on the object it is on)
+	//  in the editor.
+	public float musicSlider = 0.6f;
+	public float sfxSlider = 0.6f;
+	public float headMoveSensitivitySlider = 8f;
 	public float dishRotationSensitivitySlider = 500f;
 
 	GUIStyle rightStyle;
@@ -28,7 +32,18 @@ public class MyGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Screen.lockCursor = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+
+		// Set mouse sensitivity defaults
+		if (camera != null) {
+			if (headMove != null) {
+				if (headMove.sensitivityX != headMoveSensitivitySlider || headMove.sensitivityY != headMoveSensitivitySlider) {
+					headMove.sensitivityX = headMoveSensitivitySlider;
+					headMove.sensitivityY = headMoveSensitivitySlider;
+				}
+			}
+		}
 
 		scoreManager = GetComponent<ScoreManager>();
 		audioManager = GetComponent<AudioManager>();
@@ -39,12 +54,14 @@ public class MyGUI : MonoBehaviour {
 			if (clockDriver != null) {
 				clockDriver.OnTimeAttackStarted += (sender) =>  {
 					showMenu = false;
-					Screen.lockCursor = true;
+					Cursor.lockState = CursorLockMode.Locked;
+					Cursor.visible = false;
 				};
 
 				clockDriver.OnTimeAttackEnded += (sender) =>  {
 					showMenu = true;
-					Screen.lockCursor = false;
+					Cursor.lockState = CursorLockMode.None;
+					Cursor.visible = true;
 				};
 			}
 		}
@@ -54,11 +71,32 @@ public class MyGUI : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			showMenu = !showMenu;
-			Screen.lockCursor = !Screen.lockCursor;
 		}
 
-		if (showMenu == false) {
-			Screen.lockCursor = true;
+		headMove = camera.GetComponent<HeadMove>();
+		if (showMenu) {
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+
+			if (camera != null) {
+				if (headMove != null) {
+					headMove.sensitivityX = 0.1f;;
+					headMove.sensitivityY = 0.1f;
+				}
+			}
+		}
+		else {
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
+
+			if (camera != null) {
+				if (headMove != null) {
+					if (headMove.sensitivityX != headMoveSensitivitySlider || headMove.sensitivityY != headMoveSensitivitySlider) {
+						headMove.sensitivityX = headMoveSensitivitySlider;
+						headMove.sensitivityY = headMoveSensitivitySlider;
+					}
+				}
+			}
 		}
 
 		// Update music and sound effects levels if they changed
@@ -69,18 +107,6 @@ public class MyGUI : MonoBehaviour {
 
 			if (audioManager.GetMasterVolume(AudioBase.AudioType.SoundEffect) != sfxSlider) {
 				audioManager.SetMasterVolume(AudioBase.AudioType.SoundEffect, sfxSlider);
-			}
-		}
-
-		// Update head moving mouse sensitivity if it has changed
-		if (camera != null) {
-			headMove = camera.GetComponent<HeadMove>();
-
-			if (headMove != null) {
-				if (headMove.sensitivityX != headMoveSensitivitySlider || headMove.sensitivityY != headMoveSensitivitySlider) {
-					headMove.sensitivityX = headMoveSensitivitySlider;
-					headMove.sensitivityY = headMoveSensitivitySlider;
-				}
 			}
 		}
 	}
