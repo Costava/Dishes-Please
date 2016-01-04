@@ -11,3 +11,11 @@ Currently built using Unity 5.2.1
 ## [Play online](https://costava.github.io/Dishes-Please/play/play.html)
 
 ![Dishes, Please](http://i.imgur.com/XBYXyK1.png)
+
+## Special Thanks
+- [cemkalyoncu](http://opengameart.org/users/cemkalyoncu): Kitchen model
+- [Tech Knight](http://opengameart.org/users/tech-knight): Aztec cup
+- Samuel Moxham: Fancy cup
+- [BossLevelVGM](http://opengameart.org/users/bosslevelvgm): Music
+
+More details in attribution.md
